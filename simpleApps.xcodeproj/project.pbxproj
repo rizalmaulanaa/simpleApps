@@ -20,6 +20,7 @@
 		436275CF2BF1C341008C378C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 436275CE2BF1C341008C378C /* Launch Screen.storyboard */; };
 		436275D12BF2055F008C378C /* BoundingBoxViewDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436275D02BF2055E008C378C /* BoundingBoxViewDouble.swift */; };
 		436275D32BF2098B008C378C /* ImagePickerDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436275D22BF2098B008C378C /* ImagePickerDouble.swift */; };
+		436275D52BF338A4008C378C /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436275D42BF338A4008C378C /* BoundingBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		436275CE2BF1C341008C378C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		436275D02BF2055E008C378C /* BoundingBoxViewDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBoxViewDouble.swift; sourceTree = "<group>"; };
 		436275D22BF2098B008C378C /* ImagePickerDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDouble.swift; sourceTree = "<group>"; };
+		436275D42BF338A4008C378C /* BoundingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				431DDEE22BD26FD000D3D38D /* ImagePicker.swift */,
 				431DDEE62BD2713800D3D38D /* structClass.swift */,
 				434524412BCFB93D009C0B22 /* Assets.xcassets */,
+				436275D42BF338A4008C378C /* BoundingBox.swift */,
 				434524432BCFB93D009C0B22 /* Preview Content */,
 			);
 			path = simpleApps;
@@ -281,6 +284,7 @@
 				431DDEE32BD26FD000D3D38D /* ImagePicker.swift in Sources */,
 				436275D32BF2098B008C378C /* ImagePickerDouble.swift in Sources */,
 				436275D12BF2055F008C378C /* BoundingBoxViewDouble.swift in Sources */,
+				436275D52BF338A4008C378C /* BoundingBox.swift in Sources */,
 				431DDEE52BD2700B00D3D38D /* BoundingBoxView.swift in Sources */,
 				431DDEE72BD2713800D3D38D /* structClass.swift in Sources */,
 				4345243E2BCFB93B009C0B22 /* simpleAppsApp.swift in Sources */,

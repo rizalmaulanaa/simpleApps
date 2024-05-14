@@ -1,14 +1,5 @@
 import SwiftUI
 
-struct BoundingBox: View {
-    var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .stroke(Color.red, lineWidth: 5)
-            .frame(width: 300, height: 100)
-            .position(x: UIScreen.main.bounds.midX , y: UIScreen.main.bounds.midY - 200)
-    }
-}
-
 struct ImagePicker: UIViewControllerRepresentable {
     enum SourceType {
         case photoLibrary
@@ -185,11 +176,5 @@ struct ImagePicker: UIViewControllerRepresentable {
             // Create a new UIImage from the cropped CGImage
             return UIImage(cgImage: croppedImageRef, scale: image.scale, orientation: image.imageOrientation)
         }
-    }
-}
-
-extension View {
-    func eraseToAnyView() -> AnyView {
-        return AnyView(self)
     }
 }
