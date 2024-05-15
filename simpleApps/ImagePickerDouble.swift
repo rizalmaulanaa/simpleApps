@@ -61,7 +61,7 @@ struct ImagePickerDouble: UIViewControllerRepresentable {
         let semaphore = DispatchSemaphore(value: 0)
         
         // Construct URL for your Python backend
-        guard let url = URL(string: "http://192.168.100.59:2804/recognition_double") else {
+        guard let url = URL(string: "http://192.168.100.59:2804/recognition") else {
             print("Invalid URL")
             return [resultData()]
         }

@@ -114,11 +114,11 @@
 				435B6E772BD0BAB0001803C7 /* PhotosView.swift */,
 				431DDEE42BD2700B00D3D38D /* BoundingBoxView.swift */,
 				436275D02BF2055E008C378C /* BoundingBoxViewDouble.swift */,
-				436275D22BF2098B008C378C /* ImagePickerDouble.swift */,
 				431DDEE22BD26FD000D3D38D /* ImagePicker.swift */,
+				436275D22BF2098B008C378C /* ImagePickerDouble.swift */,
+				436275D42BF338A4008C378C /* BoundingBox.swift */,
 				431DDEE62BD2713800D3D38D /* structClass.swift */,
 				434524412BCFB93D009C0B22 /* Assets.xcassets */,
-				436275D42BF338A4008C378C /* BoundingBox.swift */,
 				434524432BCFB93D009C0B22 /* Preview Content */,
 			);
 			path = simpleApps;

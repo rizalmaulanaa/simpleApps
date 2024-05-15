@@ -12,7 +12,7 @@ struct BoundingBoxViewDouble: View {
             ZStack (alignment: .center) {
                 self.image
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+//                    .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
                 
                 ForEach(Array(self.boundingBoxesN1.enumerated()), id: \.offset) { index, boundingBox in
