@@ -12,13 +12,9 @@ struct BoundingBoxView: View {
             ZStack (alignment: .center) {
                 self.image
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity) 
+//                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: .infinity)
                 
-//                let ratioX = (CGFloat(imageShape[1]) / geometry.size.width)
-//                let ratioY = (CGFloat(imageShape[0]) / geometry.size.height)
-//                let ratioW = (geometry.size.width / CGFloat(imageShape[1]))
-//                
                 ForEach(Array(self.boundingBoxesN.enumerated()), id: \.offset) { index, boundingBox in
                     let fixX = geometry.size.width * CGFloat(boundingBox[0])
                     let fixY = geometry.size.height * CGFloat(boundingBox[1])
@@ -26,16 +22,11 @@ struct BoundingBoxView: View {
                     let fixH = geometry.size.height * CGFloat(boundingBox[3])
                     
                     Rectangle()
-                        .stroke(Color.red, lineWidth: 2)
+                        .stroke(Color.green, lineWidth: 2)
                         .frame(width: fixW,
                                height: fixH)
                         .position(x: fixX,
                                   y: fixY)
-                    
-//                        .frame(width: CGFloat(boundingBox[2]) / ratioW,
-//                               height: CGFloat(boundingBox[3]))
-//                        .position(x: CGFloat(boundingBox[0]) / ratioX,
-//                                  y: CGFloat(boundingBox[1]) / ratioY)
                 }
             }
         }

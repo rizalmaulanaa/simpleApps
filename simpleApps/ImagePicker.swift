@@ -10,8 +10,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     var sourceTypeTemp: UIImagePickerController.SourceType
     @Binding var image: Image?
     @Binding var imageUI: UIImage?
-    @Binding var res: resultData?
     @Binding var isShown: Bool
+    @Binding var isLoading: Bool
+    var funtionTap : () -> () = {}
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
@@ -41,76 +42,8 @@ struct ImagePicker: UIViewControllerRepresentable {
         Coordinator(parent: self)
     }
     
-    func createBody(with parameters: [String: Data], boundary: String) -> Data {
-        var body = Data()
-
-        for (key, value) in parameters {
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(key)\"; filename=\"\(key).jpg\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
-            body.append(value)
-            body.append("\r\n".data(using: .utf8)!)
-        }
-
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-        return body
-    }
-    
-    func sendImageToAPI(imageData: Data) -> resultData {
-        var apiDecode = resultData()
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        // Construct URL for your Python backend
-        guard let url = URL(string: "http://192.168.100.56:2804/recognition") else {
-            print("Invalid URL")
-            return resultData()
-        }
-        
-        // Construct the request
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let boundary = "Boundary-\(UUID().uuidString)"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.httpBody = createBody(with: ["image": imageData], boundary: boundary)
-        
-        // Send the request
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error sending data to Python backend: \(error)")
-            }
-
-            // Handle response if needed
-            if let data = data {
-                let decode = self.handleAPIResponse(responseData: data)
-                apiDecode.name = decode.name
-                apiDecode.prediction = decode.prediction
-                apiDecode.conf = decode.conf
-                apiDecode.bbx = decode.bbx
-                apiDecode.bbxN = decode.bbxN
-                apiDecode.imageShape = decode.imageShape
-                semaphore.signal()
-            }
-        }.resume()
-        
-        semaphore.wait()
-        
-        return apiDecode
-    }
-    
-    func handleAPIResponse(responseData: Data) -> resultData {
-        do {
-            let decoder = JSONDecoder()
-            let apiResponse = try decoder.decode([resultData].self, from: responseData)
-            // Access the parsed data from the API response
-            return apiResponse[0]
-        } catch {
-            print("Error decoding API response: \(error)")
-            return resultData()
-        }
-    }
-    
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: ImagePicker
+        var parent: ImagePicker
         
         init(parent: ImagePicker) {
             self.parent = parent
@@ -120,23 +53,24 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let uiImage = info[.originalImage] as? UIImage {
                 if let imageResize = resizeImage(image: uiImage){
                     if let croppedImage = cropImageToBoundingBox(image: imageResize) {
-                        if let imageDataCrop = croppedImage.jpegData(compressionQuality: 0.8), let imageData = imageResize.jpegData(compressionQuality: 0.8) {
-                            if parent.sourceType == .camera{
-                                let a = parent.sendImageToAPI(imageData: imageDataCrop)
-                                parent.res = a
-                                parent.image = Image(uiImage: croppedImage)
-                                parent.imageUI = croppedImage
-                            } else {
-                                let a = parent.sendImageToAPI(imageData: imageData)
-                                parent.res = a
-                                parent.image = Image(uiImage: imageResize)
-                                parent.imageUI = imageResize
-                            }
+                        if parent.sourceType == .camera{
+                            parent.image = Image(uiImage: croppedImage)
+                            parent.imageUI = croppedImage
+                            
+                            parent.funtionTap()
+                            parent.isShown = false
+                            parent.isLoading = true
+                        } else {
+                            parent.image = Image(uiImage: imageResize)
+                            parent.imageUI = imageResize
+                            
+                            parent.funtionTap()
+                            parent.isShown = false
+                            parent.isLoading = true
                         }
                     }
                 }
             }
-            parent.isShown = false
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
