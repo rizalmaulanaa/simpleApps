@@ -12,3 +12,23 @@ struct resultData: Codable {
 class UploadManager: ObservableObject {
     @Published var isUploading = false
 }
+
+struct ModelConf: Codable {
+    let id: Int
+    let modelName: String
+    let status: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case modelName = "model_name"
+        case status
+    }
+}
+
+struct AdditionalData: Codable {
+    let modelConf: [ModelConf]
+
+    enum CodingKeys: String, CodingKey {
+        case modelConf = "model_conf"
+    }
+}

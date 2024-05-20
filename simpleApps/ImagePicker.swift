@@ -12,6 +12,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var imageUI: UIImage?
     @Binding var isShown: Bool
     @Binding var isLoading: Bool
+    @Binding var isDownload: Bool
     var funtionTap : () -> () = {}
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
@@ -56,21 +57,18 @@ struct ImagePicker: UIViewControllerRepresentable {
                         if parent.sourceType == .camera{
                             parent.image = Image(uiImage: croppedImage)
                             parent.imageUI = croppedImage
-                            
-                            parent.funtionTap()
-                            parent.isShown = false
-                            parent.isLoading = true
                         } else {
                             parent.image = Image(uiImage: imageResize)
                             parent.imageUI = imageResize
                             
-                            parent.funtionTap()
-                            parent.isShown = false
-                            parent.isLoading = true
                         }
                     }
                 }
             }
+            parent.funtionTap()
+            parent.isShown = false
+            parent.isLoading = true
+            parent.isDownload = false
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
