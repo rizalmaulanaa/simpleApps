@@ -213,7 +213,7 @@ struct PhotosView: View {
             }
             
             // Construct URL for your Python backend
-            guard let url = URL(string: "http://192.168.100.66:2804/recognition") else {
+            guard let url = URL(string: "https://") else {
                 print("Invalid URL")
                 return
             }
